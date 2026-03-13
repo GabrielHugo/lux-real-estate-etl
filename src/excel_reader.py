@@ -3,7 +3,7 @@ import pandas as pd
 
 class ExcelReader:
 
-    def __init__(self, file, sheet_name, skiprows = 0, skipfooter = 0):
+    def __init__(self, file, sheet_name, skiprows = 7, skipfooter = 6):
         self.file = file
         self.sheet_name = sheet_name
         self.skiprows = skiprows
@@ -20,9 +20,3 @@ class ExcelReader:
 
         df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
         return df
-
-
-excel_2023 = ExcelReader("../data/raw/vente-appartement-2010-2024.xlsx", 2023)
-excel_2024 = ExcelReader("../data/raw/vente-appartement-2010-2024.xlsx", 2024, skiprows=7, skipfooter=6)
-
-print(excel_2024.read())

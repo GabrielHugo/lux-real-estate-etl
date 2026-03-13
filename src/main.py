@@ -1,5 +1,6 @@
 from excel_reader import ExcelReader
 
-ExcelReader("../data/raw/vente-appartement-2010-2024.xlsx", 2023)
+df = ExcelReader("../data/raw/vente-appartement-2010-2024.xlsx",
+                 2021, 7, 6)
 
-print(ExcelReader)
+print(df.read())
