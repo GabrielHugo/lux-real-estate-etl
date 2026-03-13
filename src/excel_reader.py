@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 class ExcelReader:
@@ -9,9 +10,15 @@ class ExcelReader:
         self.skiprows = skiprows
         self.skipfooter = skipfooter
 
+        if self.sheet_name < 2021:
+            self.skiprows = 10
+
     def read(self):
+
         df = pd.read_excel(self.file, sheet_name=str(self.sheet_name),
                            skiprows=self.skiprows, skipfooter=self.skipfooter)
+
+        df = df.replace(to_replace="*", value=np.nan)
 
         df = df.dropna(how="all")
         df = df.dropna(axis=1, how="all")
