@@ -3,7 +3,7 @@ import numpy as np
 
 class ExcelReader:
 
-    def __init__(self, file, skipfooter = 6,):
+    def __init__(self, file, skipfooter = 6):
 
         self.file = file
         self.skipfooter = skipfooter
