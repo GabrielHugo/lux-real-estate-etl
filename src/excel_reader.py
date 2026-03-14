@@ -34,28 +34,19 @@ class ExcelReader:
                 df = pd.read_excel(self.file, sheet_name=str(year),
                                    skiprows= 10, skipfooter=self.skipfooter)
 
-                df = df.replace(to_replace="*", value=np.nan)
-
-                df = df.dropna(how="all")
-                df = df.dropna(axis=1, how="all")
-
-                df = df.iloc[1:].reset_index(drop=True)
-
-                df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
-
             else:
 
                 df = pd.read_excel(self.file, sheet_name=str(year),
                                    skiprows=7, skipfooter=self.skipfooter)
 
-                df = df.replace(to_replace="*", value=np.nan)
+            df = df.replace(to_replace="*", value=np.nan)
 
-                df = df.dropna(how="all")
-                df = df.dropna(axis=1, how="all")
+            df = df.dropna(how="all")
+            df = df.dropna(axis=1, how="all")
 
-                df = df.iloc[1:].reset_index(drop=True)
+            df = df.iloc[1:].reset_index(drop=True)
 
-                df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
+            df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
 
 
 
