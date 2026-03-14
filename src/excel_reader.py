@@ -3,11 +3,9 @@ import numpy as np
 
 class ExcelReader:
 
-    def __init__(self, file, sheet_name = 2020, skiprows = 7, skipfooter = 6):
+    def __init__(self, file, skipfooter = 6,):
 
         self.file = file
-        self.sheet_name = sheet_name
-        self.skiprows = skiprows
         self.skipfooter = skipfooter
 
     def get_all_sheet_names(self):
@@ -23,20 +21,18 @@ class ExcelReader:
 
     def extract_and_transform(self):
 
-        all_sheet_names = ExcelReader(self.file)
+        all_sheet_names = self.get_all_sheet_names()
 
-        years = all_sheet_names.get_all_sheet_names()
+        for sheet_name in all_sheet_names:
 
-        for year in years:
+            if sheet_name < 2021:
 
-            if year < 2021:
-
-                df = pd.read_excel(self.file, sheet_name=str(year),
+                df = pd.read_excel(self.file, sheet_name=str(sheet_name),
                                    skiprows= 10, skipfooter=self.skipfooter)
 
             else:
 
-                df = pd.read_excel(self.file, sheet_name=str(year),
+                df = pd.read_excel(self.file, sheet_name=str(sheet_name),
                                    skiprows=7, skipfooter=self.skipfooter)
 
             df = df.replace(to_replace="*", value=np.nan)
@@ -50,4 +46,4 @@ class ExcelReader:
 
 
 
-            print(df, year)
+            print(df, sheet_name)
