@@ -44,6 +44,4 @@ class ExcelReader:
 
             df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
 
-
-
             print(df, sheet_name)
