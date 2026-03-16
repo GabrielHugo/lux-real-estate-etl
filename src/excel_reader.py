@@ -51,7 +51,7 @@ class ExcelReader:
 
     def send_to_sql(self):
 
-        connector = SqlConnector()
+        connector = SqlConnector().__enter__("test", 50, 5656.5, 646.5)
 
 
         with connector as d:

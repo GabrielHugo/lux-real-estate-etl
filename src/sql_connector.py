@@ -1,7 +1,10 @@
+import pandas as pd
 import pyodbc
 from dotenv import load_dotenv
 from os import getenv
 load_dotenv()
+
+from sqlalchemy import insert
 
 class SqlConnector:
 
@@ -18,7 +21,7 @@ class SqlConnector:
 
         self.cursor = self.cnxn.cursor()
 
-    def __enter__(self):
+    def __enter__(self, param1, param2, param3, param4):
 
         create_table = """
         IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Excel')
@@ -36,7 +39,16 @@ class SqlConnector:
         self.cursor.execute(create_table)
         self.cnxn.commit()
 
-        insert_table = """"""
+        insert_data = f"""
+        INSERT INTO Excel
+        (Commune, Nombre_offres, Prix_moyen, Prix_m2)
+        VALUES (?, ?, ?, ?)
+        """
+
+
+
+        self.cursor.execute(insert_data, (param1, param2, param3, param4))
+        self.cnxn.commit()
 
         return self
 
