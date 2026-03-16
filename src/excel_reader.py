@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from sql_connector import SqlConnector
+
 class ExcelReader:
 
     def __init__(self, file, skipfooter = 6):
@@ -44,4 +46,11 @@ class ExcelReader:
 
             df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
 
-            print(df, sheet_name)
+            return df, sheet_name
+
+    def send_to_sql(self):
+
+        connector = SqlConnector()
+
+        with connector as d:
+            print(d)

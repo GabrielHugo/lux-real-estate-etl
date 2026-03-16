@@ -19,17 +19,24 @@ class SqlConnector:
         self.cursor = self.cnxn.cursor()
 
     def __enter__(self):
-        # cursor = self.cursor.execute("SELECT * FROM users")
-        #
-        # for row in cursor:
-        #     print(row)
+        requete = """
+                  CREATE TABLE Excel
+                  (
+                  P_ID int,
+                  Commune VARCHAR(50),
+                  Nombre_offres INT,
+                  Prix_moyen INT,
+                  Prix_m2 INT)
+                  """
 
-        pass
+        if not requete:
+            self.cnxn.commit()
+            self.cursor.execute(requete)
+            print("Table created")
+        else:
+            print("Table existing")
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("__exit__")
         self.cursor.close()
         self.cnxn.close()
-
-with SqlConnector() as d:
-    print(d)
