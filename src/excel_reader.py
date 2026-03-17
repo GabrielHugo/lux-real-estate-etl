@@ -9,6 +9,7 @@ class ExcelReader:
 
         self.file = file
         self.skipfooter = skipfooter
+        self.df = file
 
     def get_all_sheet_names(self):
 
@@ -29,30 +30,33 @@ class ExcelReader:
 
             if sheet_name < 2021:
 
-                df = pd.read_excel(self.file, sheet_name=str(sheet_name),
+                self.df = pd.read_excel(self.file, sheet_name=str(sheet_name),
                                    skiprows= 10, skipfooter=self.skipfooter)
 
             else:
 
-                df = pd.read_excel(self.file, sheet_name=str(sheet_name),
+                self.df = pd.read_excel(self.file, sheet_name=str(sheet_name),
                                    skiprows=7, skipfooter=self.skipfooter)
 
-            df = df.replace(to_replace="*", value=np.nan)
+            self.df = self.df.replace(to_replace="*", value=np.nan)
 
-            df = df.dropna(how="all")
-            df = df.dropna(axis=1, how="all")
+            self.df = self.df.dropna(how="all")
+            self.df = self.df.dropna(axis=1, how="all")
 
-            df = df.iloc[1:].reset_index(drop=True)
+            self.df = self.df.iloc[1:].reset_index(drop=True)
 
-            df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
+            self.df.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
 
-            print(df, sheet_name)
-            return df, sheet_name
+            print(self.df, sheet_name)
 
     def send_to_sql(self):
+
+        extract_and_transform = self.extract_and_transform()
+
+        for index, row in self.df.iterrows():
+            print(row)
 
         connector = SqlConnector().__enter__("test", 50, 5656.5, 646.5)
 
 
-        with connector as d:
-            print(d)
+        print(connector)
