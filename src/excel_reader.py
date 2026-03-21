@@ -49,6 +49,8 @@ class ExcelReader:
 
             df_temp.columns = ["commune", "nombre_offres", "prix_moyen", "prix_m2"]
 
+            df_temp = df_temp.dropna(subset=["prix_moyen", "prix_m2"])
+
             df_temp["annee"] = sheet_name
 
             list_df.append(df_temp)
