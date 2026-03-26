@@ -21,13 +21,3 @@ Le projet est structuré autour de deux classes principales pour séparer les re
 ### 2. Load (`SqlConnector`)
 * **Chargement :** Une fois l'historique complet fusionné dans un seul grand tableau (DataFrame), la classe se connecte à SQL Server.
 * **Optimisation :** J'utilise la méthode `to_sql` de SQLAlchemy pour réaliser une insertion massive (Bulk Insert) des données nettoyées, plutôt qu'une boucle ligne par ligne, afin d'optimiser les performances. Les identifiants de connexion sont sécurisés via un fichier `.env`.
-
-## Comment tester ce projet en local
-
-1. Clonez ce dépôt sur votre machine.
-2. Installez les dépendances nécessaires dans votre environnement virtuel :
-   `pip install pandas numpy sqlalchemy pyodbc python-dotenv openpyxl`
-3. Créez un fichier `.env` à la racine du projet et ajoutez vos identifiants SQL Server :
-   ```text
-   DB_SERVER=Nom_de_votre_serveur_SQL
-   DB_NAME=Nom_de_votre_base_de_donnees
